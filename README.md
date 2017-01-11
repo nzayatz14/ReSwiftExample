@@ -9,7 +9,7 @@ In the `AppDelegate.swift` file, create an instance of the store above the `AppD
 ```swift
 import UIKit
 import CoreData
-import ReSwift //Import the ReSwift Library
+import ReSwift
 
 //Create the store Object
 var mainStore = Store<AppState>(
