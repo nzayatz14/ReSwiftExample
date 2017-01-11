@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		127926003A1192002DB6D48D /* Pods_ReSwiftTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A20B9769284FF97FF348A24 /* Pods_ReSwiftTest.framework */; };
 		6C14A4D7A63D6A977C306ECB /* Pods_ReSwiftTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6991CA2645664E9B3E756 /* Pods_ReSwiftTestTests.framework */; };
+		845424E81E26D8EC006DF9DD /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845424E71E26D8EC006DF9DD /* SecondViewController.swift */; };
 		847D60C01E25802900361735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D60BF1E25802900361735 /* AppDelegate.swift */; };
 		847D60C21E25802900361735 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D60C11E25802900361735 /* ViewController.swift */; };
 		847D60C51E25802900361735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847D60C31E25802900361735 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		2F6C479D0C0DAE01A09CC9C3 /* Pods-ReSwiftTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReSwiftTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReSwiftTest/Pods-ReSwiftTest.release.xcconfig"; sourceTree = "<group>"; };
 		31E6991CA2645664E9B3E756 /* Pods_ReSwiftTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReSwiftTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		845424E71E26D8EC006DF9DD /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		847D60BC1E25802900361735 /* ReSwiftTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReSwiftTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847D60BF1E25802900361735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		847D60C11E25802900361735 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				847D60C11E25802900361735 /* ViewController.swift */,
+				845424E71E26D8EC006DF9DD /* SecondViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				847D60F61E25867700361735 /* CounterReducer.swift in Sources */,
 				847D60C01E25802900361735 /* AppDelegate.swift in Sources */,
 				847D60C81E25802900361735 /* ReSwiftTest.xcdatamodeld in Sources */,
+				845424E81E26D8EC006DF9DD /* SecondViewController.swift in Sources */,
 				847D60FA1E2588FE00361735 /* CounterActions.swift in Sources */,
 				847D60F81E2587B300361735 /* State.swift in Sources */,
 			);

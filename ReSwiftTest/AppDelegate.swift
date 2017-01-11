@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import ReSwift
+import ReSwiftRouter
 
 
 var mainStore = Store<AppState>(
@@ -16,14 +17,36 @@ var mainStore = Store<AppState>(
     state: nil
 )
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var router: Router<AppState>!
     var window: UIWindow?
+    
+    
+    var rootViewController: Routable!
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let firstVC = UINavigationController()
+        rootViewController = firstVC
+        
+        router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController)) { state in
+            state.navigationState
+        }
+        
+        mainStore.dispatch(
+            SetRouteAction(["NavigationController", ViewController.identifier, SecondViewController.identifier], animated: false)
+        )
+        
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = firstVC
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -98,3 +121,104 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+class RootRoutable: Routable {
+    
+    var routable: Routable
+    
+    init(routable: Routable) {
+        self.routable = routable
+    }
+    
+    
+    /**
+     Function called when this View Controller is to have something pushed onto it
+     
+     - parameter routeElementIdentifier: the identifier of the new VC that is to be displayed
+     - parameter animated: a boolean representing whether or not the display should be animated
+     - parameter completionHandler: a function to be called once the action is completed
+     - returns: the new VC that is currently being displayed
+     */
+    func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+        
+        print("Route Push")
+        completionHandler()
+        return self.routable
+    }
+    
+    
+    /**
+     Function called when this View Controller should be displayed from a popped VC
+     
+     - parameter routeElementIdentifier: the identifier of the element that is being popped
+     - parameter animated: a boolean representing whether or not the pop is animated
+     - parameter completionHandler: a function to be called once the action is completed
+     - returns: void
+     */
+    func popRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) {
+        
+        print("Route Pop")
+        completionHandler()
+    }
+    
+    
+    /**
+     Function called when this View Controllers children is changed
+     
+     - parameter from: the identifier of the element that is being replaced
+     - parameter to: the identifier of the element that is being displayed
+     - parameter animated: a boolean representing whether or not the change should be animated
+     - parameter completionHandler: a function to be called once the action is completed
+     - returns: the new VC that is currently being displayed
+    */
+    func changeRouteSegment(_ from: RouteElementIdentifier, to: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+        
+        print("Route Change")
+        completionHandler()
+        return self.routable
+    }
+    
+}
+
+
+extension UINavigationController: Routable {
+    
+    
+    /**
+     Function called when this View Controllers children is changed
+     
+     - parameter from: the identifier of the element that is being replaced
+     - parameter to: the identifier of the element that is being displayed
+     - parameter animated: a boolean representing whether or not the change should be animated
+     - parameter completionHandler: a function to be called once the action is completed
+     - returns: the new VC that is currently being displayed
+     */
+    public func changeRouteSegment(_ from: RouteElementIdentifier, to: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+        
+        print("NavBar Change")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.viewControllers = [storyboard.instantiateViewController(withIdentifier: to)];
+        completionHandler()
+        return self.viewControllers[0] as! Routable
+    }
+    
+    
+    /**
+     Function called when this View Controller is to have something pushed onto it
+     
+     - parameter routeElementIdentifier: the identifier of the new VC that is to be displayed
+     - parameter animated: a boolean representing whether or not the display should be animated
+     - parameter completionHandler: a function to be called once the action is completed
+     - returns: the new VC that is currently being displayed
+     */
+    public func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+        
+        print("NavBar Push")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootVC = storyboard.instantiateViewController(withIdentifier: routeElementIdentifier)
+        self.pushViewController(rootVC, animated: animated)
+        completionHandler()
+        
+        return rootVC as! Routable
+    }
+}
